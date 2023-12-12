@@ -3,6 +3,7 @@
 	import type { User } from '@prisma/client';
 
 	import type { ActionData, PageData } from './$types';
+	import SelectedUser from './SelectedUser.svelte';
 
 	export let data: PageData;
 
@@ -25,7 +26,7 @@
 
 {#if !user?.taken_id}
 	{#if selected}
-
+		<SelectedUser name={selected.name} />
 	{:else}
 		<p>У тебя еще нет того, для кого ты - тайный Санта</p>
 		<form action="?/take" method="post" use:enhance={enchancer}>
