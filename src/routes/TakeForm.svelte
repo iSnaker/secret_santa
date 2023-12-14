@@ -28,11 +28,11 @@
 	{#if selected}
 		<SelectedUser name={selected.name} />
 	{:else}
-		<p>У тебя еще нет того, для кого ты - тайный Санта</p>
+		<p class="text-secondary">У тебя еще нет того, для кого ты - тайный Санта</p>
 		<form action="?/take" method="post" use:enhance={enchancer}>
 			<input hidden type="text" name="code" value={user.enter_code} />
 			<input hidden type="text" name="id" value={user.id} />
-			<button>Получить</button>
+			<button class="bg-primary px-6 py-3 text-white rounded-lg mt-8">Узнать!</button>
 		</form>
 	{/if}
 {/if}
