@@ -1,14 +1,11 @@
 <script lang="ts">
+	import type { ActionData, PageData } from './$types';
 	import { enhance } from '$app/forms';
 	import type { User } from '@prisma/client';
-
-	import type { ActionData, PageData } from './$types';
 	import SelectedUser from './SelectedUser.svelte';
 
 	export let data: PageData;
-
 	export let form: ActionData;
-
 	export let user: User;
 
 	let selected: Partial<User> | null = null;
@@ -26,9 +23,9 @@
 
 {#if !user?.taken_id}
 	{#if selected}
-		<SelectedUser name={selected.name} />
+		<SelectedUser name={selected.name} interests={selected.interests} />
 	{:else}
-		<p class="text-secondary">У тебя еще нет того, для кого ты - тайный Санта</p>
+		<p class="text-secondary text-center">У тебя еще нет того, для кого ты - тайный Санта</p>
 		<form action="?/take" method="post" use:enhance={enchancer}>
 			<input hidden type="text" name="code" value={user.enter_code} />
 			<input hidden type="text" name="id" value={user.id} />

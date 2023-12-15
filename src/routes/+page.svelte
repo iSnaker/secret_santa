@@ -24,7 +24,7 @@
 {#if user}
 	<p class="text-3xl text-primary my-4">{user.name}</p>
 	{#if user?.taken_by}
-		<SelectedUser name={user.taken_by?.name} />
+		<SelectedUser name={user.taken_by?.name} interests={user.taken_by?.interests} />
 	{/if}
 	<TakeForm {user}></TakeForm>
 {:else}
@@ -35,12 +35,12 @@
 		<div class="flex flex-col">
 			<input
 				placeholder="Твой код"
-				class="px-4 pt-3 pb-1 bg-third bg-opacity-20 rounded-md text-center shadow-md border-2 border-secondary"
+				class="px-4 pt-3 pb-1 bg-white rounded-md text-center shadow-md border-2 border-secondary"
 				type="text"
 				name="code"
 			/>
 			<button
-				class="bg-orange-500 text-white px-4 py-2 rounded-md mt-3 hover:bg-orange-400 transition-colors duration-200"
+				class="bg-primary text-white px-4 pt-3 pb-2 rounded-md mt-3 hover:bg-red-500 transition-colors duration-200"
 				type="submit">Узнать!</button
 			>
 		</div>

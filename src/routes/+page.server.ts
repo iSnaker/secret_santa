@@ -11,9 +11,15 @@ export const actions: Actions = {
         const data = await request.formData()
         const code = data.get("code") as string
 
-        const targetUser = await prismaClient.user.findFirst({ where: { enter_code: code }, include: { taken_by: true } })
+        const targetUser = await prismaClient.user.findFirst({
+            where: { enter_code: code },
+            include: {
+                taken_by: {
+                    include: { interests: true }
+                }
+            }
+        })
 
-        cookies.set('user', code)
         if (targetUser) {
             return {
                 success: true,
@@ -23,11 +29,15 @@ export const actions: Actions = {
     },
     take: async ({ request }) => {
         const data = await request.formData()
-        const code = data.get("code") as string
         const user_id = Number(data.get("id") as unknown as number)
 
         try {
-            const users = await prismaClient.user.findMany({ where: { NOT: { id: user_id } } })
+            const users = await prismaClient.user.findMany({
+                where: { NOT: { id: user_id } },
+                include: {
+                    interests: true
+                }
+            })
 
             const taken = users.map(user => user.taken_id)
             const available = users.filter(user => !taken.includes(user.id))

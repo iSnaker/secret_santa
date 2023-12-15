@@ -11,10 +11,21 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String
+  id         Int        @id @default(autoincrement())
+  name       String
   enter_code String
-  taken_id Int?    @unique
-  taken_by User?  @relation("picked_by", fields: [taken_id], references: [id])
-  taken    User?  @relation("picked_by")
+  taken_id   Int?       @unique
+  taken_by   User?      @relation("picked_by", fields: [taken_id], references: [id])
+  taken      User?      @relation("picked_by")
+  interests  Interest[]
+}
+
+model Interest {
+  id      Int     @id @default(autoincrement())
+  name    String
+  url     String?
+  user_id Int
+  user    User    @relation(fields: [user_id], references: [id])
+
+  @@map("Interests")
 }
