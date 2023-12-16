@@ -3,6 +3,7 @@
 	import { enhance } from '$app/forms';
 	import type { User } from '@prisma/client';
 	import SelectedUser from './SelectedUser.svelte';
+	import Spinner from '$lib/frontend/Spinner.svelte';
 
 	export let data: PageData;
 	export let form: ActionData;
