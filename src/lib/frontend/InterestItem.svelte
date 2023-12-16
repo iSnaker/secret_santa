@@ -11,7 +11,7 @@
 </script>
 
 <div
-	class="h-32 bg-white shadow-xl shadow-primary flex flex-col items-center text-center justify-between p-5 rounded-md"
+	class="bg-white shadow-xl shadow-primary flex flex-col items-center text-center justify-between p-5 rounded-md"
 >
 	<p class="text-secondary">{interest.name}</p>
 	{#if interest.url}

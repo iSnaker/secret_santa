@@ -4,18 +4,23 @@
 	import type { ActionData, PageData } from './$types';
 	import TakeForm from './TakeForm.svelte';
 	import SelectedUser from './SelectedUser.svelte';
+	import Spinner from '$lib/frontend/Spinner.svelte';
 
 	export let data: PageData;
 	export let form: ActionData;
 
 	let user: Partial<User> | null = null;
+	let loading: boolean = false;
 
 	const enchancer = () => {
+		loading = true;
+
 		return async ({ result, update }) => {
-			if (result.data.success) {
+			if (result.data?.success) {
 				user = result.data.user;
 			}
 
+			loading = false;
 			update();
 		};
 	};
@@ -33,16 +38,22 @@
 	</p>
 	<form action="?/login" method="post" use:enhance={enchancer}>
 		<div class="flex flex-col">
-			<input
-				placeholder="Твой код"
-				class="px-4 pt-3 pb-1 bg-white rounded-md text-center shadow-md border-2 border-secondary"
-				type="text"
-				name="code"
-			/>
-			<button
-				class="bg-primary text-white px-4 pt-3 pb-2 rounded-md mt-3 hover:bg-red-500 transition-colors duration-200"
-				type="submit">Узнать!</button
-			>
+			{#if loading}
+				<div class="flex items-center justify-center">
+					<Spinner />
+				</div>
+			{:else}
+				<input
+					placeholder="Твой код"
+					class="px-4 pt-3 pb-1 bg-white rounded-md text-center shadow-md border-2 border-secondary"
+					type="text"
+					name="code"
+				/>
+				<button
+					class="bg-primary text-white px-4 pt-3 pb-2 rounded-md mt-3 hover:bg-red-500 transition-colors duration-200"
+					type="submit">Узнать!</button
+				>
+			{/if}
 		</div>
 	</form>
 {/if}
